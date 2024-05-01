@@ -56,15 +56,15 @@ class Sistema:
         self.head = None
         self.parqueaderos = self.parqueaderos_lista()
         
-    def parqueaderos_lista(self):#Crea todos los parqueaderos
+    def parqueaderos_lista(self):#Crea todos los parqueaderos que son 210 por piso y 630 en total, es decir, 21 parqueaderos por fila(podían ser más o menos filas, pero yo escogí 10 por pisos)
         parqueaderos = [] 
-        for piso in range(1, 4):
-            for fila in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]:
-                for puesto in range(1, 13):#LLega hasta 12, motocicletas
+        for piso in range(1, 4):#3 pisos
+            for fila in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]:#10 filas
+                for puesto in range(1, 13):#12 motocicletas
                     parqueaderos.append(Parqueadero(f"P{piso}{fila}{puesto}", "Motocicleta"))
-                for puesto in range(13, 21):#Llega hasta 8#autos
+                for puesto in range(13, 21):#8 autos
                     parqueaderos.append(Parqueadero(f"P{piso}{fila}{puesto}", "Auto"))
-                for puesto in range(21, 22):
+                for puesto in range(21, 22):#1 movilidad reducida
                     parqueaderos.append(Parqueadero(f"P{piso}{fila}{puesto}", "Movilidad Reducida"))     
                     
         return parqueaderos
