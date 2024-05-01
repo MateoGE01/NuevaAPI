@@ -69,14 +69,14 @@ class Sistema:
                     
         return parqueaderos
     
-
-    def parqueadero_disponible(self, tipo):#CUMPLE PUNTO 3. Verifica si hay parqueaderos disponibles para el tipo de vehiculo que ingresará
+    #CUMPLE PUNTO 2 y 3
+    def parqueadero_disponible(self, tipo):# Verifica si hay parqueaderos disponibles para el tipo de vehiculo que ingresará
         parqueaderos_disponibles = []
         for parqueadero in self.parqueaderos:
             if parqueadero.tipo == tipo and parqueadero.ocupado == False:
                 parqueaderos_disponibles.append(parqueadero)
         
-        if parqueaderos_disponibles != []:#Si hay parqueaderos disponibles
+        if parqueaderos_disponibles != []:
             return random.choice(parqueaderos_disponibles)
         else:
             print("No hay parqueaderos disponibles")
@@ -102,14 +102,14 @@ class Sistema:
             current.siguiente.hora_ingreso = datetime.strptime(hora, "%H:%M")
             
     #CUMPLE PUNTO 4        
-    def consultar_ubicacion_vehiclo(self, placa):#Es como el Search de LinkedList
+    def consultar_ubicacion_vehiclo(self, placa):#Es como el Search de LinkedList, se recorre cada nodo para encontrar el vehiculo y su ubicación
         current = self.head
         while current != None:
             if current.placa == placa:
-                return current.parqueadero.ubicacion
+                print(current.parqueadero.ubicacion)
             current = current.siguiente
     
-    def consultar_vehiculos_piso(self):
+    def consultar_vehiculos_piso(self):#Muestra los vehiculos de cada piso
         for piso in range(1, 4):
             print(f"Piso {piso}:")
             current = self.head
@@ -131,7 +131,7 @@ class Sistema:
             return
         
         previous = None
-        while (current != None):#Si el vehiculo a salir no es el primero
+        while (current != None):#Si el vehiculo a salir no es el primero o el self.head
             previous = current
             current = current.siguiente
             if current.placa == placa:
@@ -142,7 +142,7 @@ class Sistema:
                 self.calcular_precio(current.placa, current.hora_ingreso, hora_salida)#Calcula el precio a pagar
                 current = None
 
-    def calcular_precio(self, placa, hora_entrada, hora_salida):#Calcula el precio a pagar por el tiempo que estuvo el vehiculo en el parqueadero
+    def calcular_precio(self, placa, hora_entrada, hora_salida):#Calcula el precio a pagar por el tiempo que estuvo el vehiculo en el parqueadero, incluye horas y fracciones de hora(minutos)
         hora_salida = datetime.strptime(hora_salida, "%H:%M")
         diferencia = hora_salida - hora_entrada
         precio_hora = 2000
@@ -158,18 +158,16 @@ class Sistema:
             if parqueadero.ocupado == False:
                 print(f"Parqueadero {parqueadero.ubicacion} tipo {parqueadero.tipo}")  
     
-    #Es para mostrar los parqueaderos ocupados, no es un requerimiento, pero es útil para verificar que el programa funciona
-    def mostrar_parqueaderos_ocupados(self):
+    #Las siguientes dos funciones son para verificar que el programa funciona
+    def mostrar_parqueaderos_ocupados(self):#Es para mostrar los parqueaderos ocupados, no es un requerimiento, pero es útil para verificar que el programa funciona
             ocupados = []
             for parqueadero in self.parqueaderos:
                 if parqueadero.ocupado:
                     ocupados.append(parqueadero)
             for parqueadero in ocupados:
                 print(f"Parqueadero {parqueadero.ubicacion} tipo {parqueadero.tipo} ocupado por {parqueadero.vehiculo.placa}")
-    
-                           
-    #Es para imprimir los parqueaderos, me sirve para verificar que están todos los parqueaderos        
-    def imprimir_parqueaderos(self):
+       
+    def imprimir_parqueaderos(self):#Es para imprimir los parqueaderos, me sirve para verificar que están todos los parqueaderos    
         for piso in range(1, 4):
             print(f"Piso {piso}:")
             for fila in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]:
@@ -184,11 +182,17 @@ class Sistema:
 
 if __name__ == "__main__":
     hola = Sistema()
-    hola.ingreso("ABC123", "Auto", "07:40") #Punto 2 y por dentro cumple el 3
+    #Punto 2 y por dentro cumple el 3
+    hola.ingreso("ABC123", "Auto", "07:40") 
     hola.ingreso("DEF456", "Auto", "08:00") 
     hola.ingreso("GHI789", "Auto", "09:00")
     hola.ingreso("JKL012", "Auto", "10:00")
-    hola.salida("ABC123", "09:23") #Punto 5
-    #hola.mostrar_parqueaderos_ocupados() #Para verificar que el programa funciona
-    hola.consultar_vehiculos_piso() #Punto 4
-    #hola.mostrar_parqueaderos_disponibles()   Punto 1, son bastantes así que para evitar llenar toda la terminal lo mantengo comentado
+    #Punto 5
+    hola.salida("ABC123", "09:23") 
+    #Punto 4
+    hola.consultar_ubicacion_vehiclo("DEF456")
+    hola.consultar_vehiculos_piso()
+    #Punto 1, son bastantes así que para evitar llenar toda la terminal lo mantengo comentado
+    #hola.mostrar_parqueaderos_disponibles()   
+    #Para verificar que el programa funciona
+    #hola.mostrar_parqueaderos_ocupados() 
