@@ -24,10 +24,11 @@ class Vehiculo(models.Model):
 
 
 class sistema_parqueo:
-
+    
     def __init__(self):
         self.head = None
 
+    #Crea todos los parqueaderos que son 210 por piso y 630 en total, es decir, 21 parqueaderos por fila(podían ser más o menos filas, pero yo escogí 10 por pisos)
     def parqueaderos_lista(self):
         for piso in range(1, 4):
             for fila in ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]:
@@ -38,6 +39,7 @@ class sistema_parqueo:
                 for puesto in range(21, 22):
                     Parking(ubicacion=f"P{piso}{fila}{puesto}", tipo="Movilidad Reducida").save()    
 
+    #Los siguientes 3 métodos cumplen punto 2 y 3
     def parqueadero_disponible(self, tipo):
         parqueaderos_disponibles = Parking.objects.filter(tipo=tipo, ocupado=False).order_by('?')
 
