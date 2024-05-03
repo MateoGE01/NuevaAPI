@@ -10,7 +10,7 @@ class ParqueaderoViewSet(viewsets.ModelViewSet):
     serializer_class = ParqueaderoSerializer
     sistema = sistema_parqueo()
 
-    #Se crean los parqueaderos
+    #Se crean los parqueaderos, solo puede ser ejecutado 1 una vez, si se desea volver a crear los parqueaderos, se deben eliminar todos los parqueaderos
     def create(self, request):
         if Parking.objects.exists():
             return Response({"detail":"Los parqueaderos ya han sido creados. Elimine todos los parqueaderos si desea usar este método."}, status=status.HTTP_400_BAD_REQUEST)
