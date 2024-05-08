@@ -1,0 +1,36 @@
+table{
+    width: 100%;
+    border-collapse: collapse;
+    padding: 0;
+}
+
+table caption{
+    font-size: 1.5em;
+    font-weight: bolder;
+    margin: .5em 0 .75em;
+    text-align: center;
+}
+
+table tr{
+    background-color: #f8f8f8;
+}
+
+table th, table td{
+    padding: .625em;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+table td{
+    padding: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+table td.Desocupado{
+    background-color: green;
+}
+
+table td.Ocupado{
+    background-color: red;
+}
